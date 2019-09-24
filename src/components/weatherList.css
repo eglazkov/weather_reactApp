@@ -19,11 +19,23 @@
     cursor: pointer;
 }
 
+.listItems span {
+    display: flex;
+    justify-content: space-between;
+}
+
 .listItems span.dayofWeek {
-    font-size: 110%;
+    font-size: 120%;
 }
 
 .listItems span.briefDate {
-    padding-top: 10px;
     font-size: 80%;
+}
+
+.listItems span.degrees {
+    font-size: 120%;
+}
+
+.listItems span.icon {
+    margin-left: 20px;
 }

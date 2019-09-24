@@ -29,8 +29,14 @@ class WeatherList extends Component {
         <ul>
           {weatherItems.forecasts.map((item, index) => {
             return(
-              <li onClick={this.itemClick.bind(this, item)} key={index} className={'active'}>
-                <span className={'dayOfWeek'}>{this.getNameOfDay(item.date)}</span>
+              <li onClick={this.itemClick.bind(this, item)} key={index} className={''}>
+                <span className={'leftSpan'}>
+                  <span className={'dayofWeek'}>{this.getNameOfDay(item.date)}</span>
+                  <span>
+                    <span className={'degrees'}>{item.parts.day_short.temp}° / {item.parts.night_short.temp}</span>
+                    <span className={'icon'}>{item.parts.day_short.icon}</span>
+                  </span>
+                </span>
                 <span className={'briefDate'}>{this.getBrifDate(item.date)}</span>
               </li>
             )
