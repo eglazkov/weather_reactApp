@@ -1,0 +1,29 @@
+.listItems{
+    box-sizing: border-box;
+    justify-content: left;
+}
+
+.listItems ul{
+    padding-inline-start: 0;
+}
+
+.listItems li {
+    position: relative;
+    width:auto;
+    height: 35px;
+    padding: 15px;
+    margin-top: 5px;
+    border-radius: 5px;
+    background-color: lightgrey;
+    list-style-type: none;
+    cursor: pointer;
+}
+
+.listItems span.dayofWeek {
+    font-size: 110%;
+}
+
+.listItems span.briefDate {
+    padding-top: 10px;
+    font-size: 80%;
+}
