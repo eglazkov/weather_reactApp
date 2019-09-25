@@ -52,8 +52,8 @@
                 <configuration>
                     <nodeVersion>v10.0.0</nodeVersion>
                     <npmVersion>6.1.0</npmVersion>
-                    <nodeDownloadRoot>http://nexus/repository/nodejs/</nodeDownloadRoot>
-                    <npmDownloadRoot>http://nexus/repository/npm-proxy/npm/-/</npmDownloadRoot>
+                    <nodeDownloadRoot>https://nodejs.org/dist/</nodeDownloadRoot>
+                    <npmDownloadRoot>https://registry.npmjs.org/npm/-/</npmDownloadRoot>
                     <workingDirectory>src/main/resources</workingDirectory>
                 </configuration>
                 <executions>
@@ -63,15 +63,15 @@
                             <goal>install-node-and-npm</goal>
                         </goals>
                     </execution>
-                    <execution>
-                        <id>Set proxy</id>
-                        <goals>
-                            <goal>npm</goal>
-                        </goals>
-                        <configuration>
-                            <arguments>config set registry http://nexus/repository/npm-proxy/</arguments>
-                        </configuration>
-                    </execution>
+                    <!--<execution>-->
+                        <!--<id>Set proxy</id>-->
+                        <!--<goals>-->
+                            <!--<goal>npm</goal>-->
+                        <!--</goals>-->
+                        <!--<configuration>-->
+                            <!--<arguments>config set registry http://nexus/repository/npm-proxy/</arguments>-->
+                        <!--</configuration>-->
+                    <!--</execution>-->
                     <!--<execution>-->
                         <!--<id>npm install</id>-->
                         <!--<goals>-->

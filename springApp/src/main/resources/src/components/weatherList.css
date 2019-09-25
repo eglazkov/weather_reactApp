@@ -9,6 +9,7 @@
 
 .listItems li {
     position: relative;
+    margin-bottom: 1%;
     width:auto;
     height: 35px;
     padding: 15px;
@@ -21,10 +22,10 @@
 }
 
 .listItems li[weatherindicator=bkn_-ra_d]{
-    background-image: linear-gradient(#f7fcff, #fff8de, lightgray);
+    background-color: #e0e0e0;
 }
 .listItems li[weatherindicator=bkn_-sn_d]{
-    background-image: linear-gradient(#f7fcff, #fff8de, lightblue);
+    background-color: #ecf6f8;
 }
 
 .listItems li[weatherindicator=bkn_d]{
@@ -32,15 +33,15 @@
 }
 
 .listItems li[weatherindicator=bkn_ra_d]{
-    background-image: linear-gradient(#f7fcff, #fff8de, darkgray);
+    background-color: #e0e0e0;
 }
 
 .listItems li[weatherindicator=bkn_sn_d]{
-    background-image: linear-gradient(#f7fcff, #fff8de, dodgerblue);
+    background-color: #ecf6f8;
 }
 
 .listItems li[weatherindicator=bl]{
-    background-image: linear-gradient(dodgerblue, #f7fcff, dodgerblue);
+    background-color: #ecf6f8;
 }
 
 .listItems li[weatherindicator=fg_d]{
@@ -52,19 +53,19 @@
 }
 
 .listItems li[weatherindicator=ovc_-ra]{
-    background-image: linear-gradient(white, lightgray);
+    background-color: #e0e0e0;
 }
 
 .listItems li[weatherindicator=ovc_-sn]{
-    background-image: linear-gradient(white, lightblue);
+    background-color: #ecf6f8;
 }
 
 .listItems li[weatherindicator=ovc_ra]{
-    background-image: linear-gradient(white, darkgray);
+    background-color: #e0e0e0;
 }
 
 .listItems li[weatherindicator=ovc_sn]{
-    background-image: linear-gradient(white, dodgerblue);
+    background-color: #ecf6f8;
 }
 
 .listItems li[weatherindicator=ovc_ts_ra]{

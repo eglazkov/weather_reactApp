@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './weatherList.css';
 import utils from "../utils/utils";
+import Loader from './loader';
 
 class WeatherList extends Component {
 
@@ -44,7 +45,7 @@ class WeatherList extends Component {
                 <span className={'briefDate'}>{this.getBrifDate(item.date)}</span>
               </li>
             )
-          }) : <h3 style={{textAlign: 'center'}}>No data</h3>}
+          }) : <Loader />}
         </ul>
       </div>
     );

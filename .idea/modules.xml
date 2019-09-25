@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/springApp/springApp.iml" filepath="$PROJECT_DIR$/springApp/springApp.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/weather_reactapp.iml" filepath="$PROJECT_DIR$/.idea/weather_reactapp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/weather_reactApp.iml" filepath="$PROJECT_DIR$/.idea/weather_reactApp.iml" />
     </modules>
   </component>
 </project>

@@ -6,10 +6,17 @@
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
+<<<<<<< Updated upstream
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/springApp/pom.xml" />
       </list>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" project-jdk-name="1.8.0_201" project-jdk-type="JavaSDK" />
+=======
+        <option value="$PROJECT_DIR$/../react_scripts/pom.xml" />
+      </list>
+    </option>
+  </component>
+>>>>>>> Stashed changes
 </project>
