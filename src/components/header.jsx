@@ -1,8 +1,5 @@
 import React, {Component} from 'react';
-import {itemClick} from './weatherList'
 import './header.css';
-
-console.log(itemClick);
 
 class Header extends Component {
 
@@ -18,8 +15,7 @@ class Header extends Component {
 
   tabClick(tabSysName){
     this.setState({currentTab: tabSysName});
-    debugger;
-    itemClick();
+    this.props.clickTab(tabSysName);
   }
 
   render() {

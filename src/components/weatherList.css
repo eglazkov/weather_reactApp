@@ -4,7 +4,7 @@
 }
 
 .listItems ul{
-    padding-inline-start: 0;
+    padding-left: 0;
 }
 
 .listItems li {
@@ -93,7 +93,7 @@
     font-size: 120%;
 }
 
-.listItems span.icon {
+.listItems span.icon img{
     margin-left: 20px;
     width: 30px;
     height: 30px;

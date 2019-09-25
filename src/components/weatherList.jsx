@@ -1,12 +1,6 @@
 import React, {Component} from 'react';
-import {getWeatherDataByCoordinates} from '../actions/getWeatherByCoordinates';
-import {connect} from 'react-redux';
 import './weatherList.css';
 import utils from "../utils/utils";
-
-/*export const itemClick = function(){
-  this.props.dispatch(getWeatherDataByCoordinates({}));
-};*/
 
 class WeatherList extends Component {
 
@@ -14,7 +8,7 @@ class WeatherList extends Component {
     super(...args);
 
     this.state = {
-      itemClick: itemClick
+
     };
 
     const utilsObj = new utils();
@@ -25,7 +19,7 @@ class WeatherList extends Component {
   }
 
   itemClick(){
-    this.props.dispatch(getWeatherDataByCoordinates({}));
+    console.log('itemClick');
   };
 
 
@@ -34,7 +28,6 @@ class WeatherList extends Component {
     const {weatherItems} = this.props;
     return (
       <div className={'listItems'}>
-          {JSON.stringify(this.props.weatherData)}
         <ul>
           {weatherItems && weatherItems.forecasts && weatherItems.forecasts.length > 0 ? weatherItems.forecasts.map((item, index) => {
             return(
@@ -51,19 +44,12 @@ class WeatherList extends Component {
                 <span className={'briefDate'}>{this.getBrifDate(item.date)}</span>
               </li>
             )
-          }) : <h3>No data</h3>}
+          }) : <h3 style={{textAlign: 'center'}}>No data</h3>}
         </ul>
       </div>
     );
   }
 }
 
-function mapStateToProps(state){
-  return{
-    weatherData: state.weatherData.data
-  }
-}
 
-
-export default connect(mapStateToProps)(WeatherList);
-export const itemClick = WeatherList.itemClick;
+export default WeatherList;

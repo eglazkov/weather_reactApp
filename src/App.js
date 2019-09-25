@@ -1,35 +1,68 @@
-import React from 'react';
+import React , {Component} from 'react';
+import {connect} from 'react-redux';
 import Header from './components/header';
 import WeatherList from './components/weatherList';
 import {getWeatherDataByCoordinates} from './actions/getWeatherByCoordinates';
 
-function App() {
-  const tabs = [
-    {'tabSysName': "for_today", 'tabName': 'Today'},
-    {'tabSysName': "for_week", 'tabName': 'Week'}
-  ];
-  const icons = ["bkn_-ra_d","bkn_-sn_d","bkn_d","bkn_ra_d","bkn_sn_d","bl","fg_d","ovc","ovc_-ra","ovc_-sn","ovc_ra","ovc_sn","ovc_ts_ra","skc_d"];
-  let stub = {
-      forecasts: []
-  };
+class App extends Component{
 
-  for(var i=0; i<icons.length; i++){
+  constructor(...args) {
+    super(...args);
+
+    this.state = {
+      regionCoordinates: {lat: 56, lon: 38}
+    };
+
+    this.tabs = [
+      {'tabSysName': "for_today", 'tabName': 'Today'},
+      {'tabSysName': "for_week", 'tabName': 'Week'}
+    ];
+    /*--Заглушка
+
+    const icons = ["bkn_-ra_d","bkn_-sn_d","bkn_d","bkn_ra_d","bkn_sn_d","bl","fg_d","ovc","ovc_-ra","ovc_-sn","ovc_ra","ovc_sn","ovc_ts_ra","skc_d"];
+    let stub = {
+      forecasts: []
+    };
+
+    for(let i=0; i<icons.length; i++){
       stub.forecasts.push(
-          {
-              parts: {
-                  day_short: {temp: 666, icon: icons[i]},
-                  night_short: {temp: 999}
-              }
+        {
+          parts: {
+            day_short: {temp: 666, icon: icons[i]},
+            night_short: {temp: 999}
           }
+        }
       )
+    }
+    ----*/
+
+    this.clickTab = this.clickTab.bind(this);
+
   }
 
-  return (
-    <div className="App">
-      <Header getData={getWeatherDataByCoordinates} tabs={tabs}/>
-      <WeatherList weatherItems={{"now":1569347870,"now_dt":"2019-09-24T17:57:50.686Z","info":{"f":true,"n":true,"nr":true,"ns":true,"nsr":true,"p":true,"lat":56,"lon":38,"tzinfo":{"name":"Europe/Moscow","abbr":"MSK","offset":10800,"dst":false},"def_pressure_mm":743,"def_pressure_pa":990,"_h":false,"url":"https://yandex.ru/pogoda/?lat=56&lon=38"},"fact":{"temp":2,"feels_like":-1,"icon":"ovc","condition":"overcast","wind_speed":1.4,"wind_gust":3,"wind_dir":"w","pressure_mm":748,"pressure_pa":998,"humidity":86,"uv_index":0,"soil_temp":5,"soil_moisture":0.3,"daytime":"n","polar":false,"season":"autumn","obs_time":1569344400,"accum_prec":{"1":0,"3":0,"7":0},"source":"20,21"},"forecasts":[{"date":"2019-09-24","date_ts":1569272400,"week":39,"sunrise":"06:16","sunset":"18:23","rise_begin":"05:39","set_end":"19:00","moon_code":5,"moon_text":"decreasing-moon","parts":{"night":{"_source":"0,1,2,3,4,5","temp_min":0,"temp_max":2,"temp_avg":1,"feels_like":-3,"icon":"bkn_n","condition":"partly-cloudy","daytime":"n","polar":false,"wind_speed":3.3,"wind_gust":5.8,"wind_dir":"w","pressure_mm":747,"pressure_pa":996,"humidity":84,"uv_index":0,"soil_temp":5,"soil_moisture":0.31,"prec_mm":0,"prec_period":360,"prec_prob":0},"morning":{"_source":"6,7,8,9,10,11","temp_min":0,"temp_max":6,"temp_avg":3,"feels_like":-2,"icon":"ovc","condition":"overcast","daytime":"d","polar":false,"wind_speed":3.9,"wind_gust":9.3,"wind_dir":"w","pressure_mm":747,"pressure_pa":996,"humidity":79,"uv_index":1,"soil_temp":4,"soil_moisture":0.31,"prec_mm":0,"prec_period":360,"prec_prob":0},"day":{"_source":"12,13,14,15,16,17","temp_min":6,"temp_max":7,"temp_avg":7,"feels_like":2,"icon":"ovc_-ra","condition":"overcast-and-light-rain","daytime":"d","polar":false,"wind_speed":3.9,"wind_gust":10.3,"wind_dir":"w","pressure_mm":747,"pressure_pa":996,"humidity":66,"uv_index":2,"soil_temp":8,"soil_moisture":0.3,"prec_mm":0.3,"prec_period":360,"prec_prob":50},"evening":{"_source":"18,19,20,21,22,23","temp_min":1,"temp_max":5,"temp_avg":3,"feels_like":0,"icon":"bkn_n","condition":"cloudy","daytime":"n","polar":false,"wind_speed":1.9,"wind_gust":3.7,"wind_dir":"w","pressure_mm":748,"pressure_pa":998,"humidity":82,"uv_index":0,"soil_temp":6,"soil_moisture":0.3,"prec_mm":0,"prec_period":360,"prec_prob":0},"day_short":{"_source":"8,9,10,11,12,13,14,15,16,17,18,19,20","temp":7,"temp_min":2,"feels_like":3,"icon":"ovc_-ra","condition":"overcast-and-light-rain","wind_speed":3.9,"wind_gust":10.3,"wind_dir":"w","pressure_mm":747,"pressure_pa":996,"humidity":71,"uv_index":2,"soil_temp":7,"soil_moisture":0.3,"prec_mm":0.3,"prec_prob":50},"night_short":{"temp":0,"feels_like":-5,"icon":"bkn_n","condition":"partly-cloudy","wind_speed":3.3,"wind_gust":5.8,"wind_dir":"w","pressure_mm":747,"pressure_pa":996,"humidity":84,"uv_index":0,"soil_temp":5,"soil_moisture":0.31,"prec_mm":0,"prec_prob":0}}},{"date":"2019-09-25","date_ts":1569358800,"week":39,"sunrise":"06:18","sunset":"18:20","moon_code":6,"moon_text":"decreasing-moon","parts":{"night":{"_source":"0,1,2,3,4,5","temp_min":0,"temp_max":1,"temp_avg":1,"feels_like":-2,"icon":"bkn_n","condition":"cloudy","daytime":"n","polar":false,"wind_speed":1.9,"wind_gust":2.8,"wind_dir":"w","pressure_mm":748,"pressure_pa":998,"humidity":93,"uv_index":0,"soil_temp":4,"soil_moisture":0.3,"prec_mm":0,"prec_period":360,"prec_prob":0},"morning":{"_source":"6,7,8,9,10,11","temp_min":1,"temp_max":5,"temp_avg":3,"feels_like":0,"icon":"ovc","condition":"overcast","daytime":"d","polar":false,"wind_speed":2,"wind_gust":4.7,"wind_dir":"w","pressure_mm":749,"pressure_pa":999,"humidity":85,"uv_index":2,"soil_temp":4,"soil_moisture":0.3,"prec_mm":0,"prec_period":360,"prec_prob":0},"day":{"_source":"12,13,14,15,16,17","temp_min":6,"temp_max":7,"temp_avg":7,"feels_like":3,"icon":"ovc","condition":"overcast","daytime":"d","polar":false,"wind_speed":2.6,"wind_gust":6.3,"wind_dir":"w","pressure_mm":749,"pressure_pa":999,"humidity":58,"uv_index":2,"soil_temp":8,"soil_moisture":0.3,"prec_mm":0,"prec_period":360,"prec_prob":0},"evening":{"_source":"18,19,20,21,22,23","temp_min":3,"temp_max":5,"temp_avg":4,"feels_like":1,"icon":"ovc_-ra","condition":"overcast-and-light-rain","daytime":"n","polar":false,"wind_speed":1.8,"wind_gust":5.9,"wind_dir":"w","pressure_mm":749,"pressure_pa":999,"humidity":79,"uv_index":0,"soil_temp":6,"soil_moisture":0.3,"prec_mm":0.1,"prec_period":360,"prec_prob":50},"day_short":{"_source":"8,9,10,11,12,13,14,15,16,17,18,19,20","temp":7,"temp_min":2,"feels_like":3,"icon":"ovc_-ra","condition":"overcast-and-light-rain","wind_speed":2.6,"wind_gust":6.3,"wind_dir":"w","pressure_mm":749,"pressure_pa":999,"humidity":68,"uv_index":2,"soil_temp":7,"soil_moisture":0.3,"prec_mm":0.1,"prec_prob":50},"night_short":{"temp":0,"feels_like":-3,"icon":"bkn_n","condition":"cloudy","wind_speed":1.9,"wind_gust":2.8,"wind_dir":"w","pressure_mm":748,"pressure_pa":998,"humidity":93,"uv_index":0,"soil_temp":4,"soil_moisture":0.3,"prec_mm":0,"prec_prob":0}}},{"date":"2019-09-26","date_ts":1569445200,"week":39,"sunrise":"06:20","sunset":"18:17","moon_code":6,"moon_text":"decreasing-moon","parts":{"night":{"_source":"0,1,2,3,4,5","temp_min":2,"temp_max":3,"temp_avg":3,"feels_like":0,"icon":"ovc_-ra","condition":"overcast-and-light-rain","daytime":"n","polar":false,"wind_speed":1.6,"wind_gust":4.2,"wind_dir":"w","pressure_mm":749,"pressure_pa":999,"humidity":91,"uv_index":0,"soil_temp":5,"soil_moisture":0.3,"prec_mm":0.1,"prec_period":360,"prec_prob":50},"morning":{"_source":"6,7,8,9,10,11","temp_min":3,"temp_max":8,"temp_avg":6,"feels_like":3,"icon":"ovc","condition":"overcast","daytime":"d","polar":false,"wind_speed":2.5,"wind_gust":6.7,"wind_dir":"w","pressure_mm":749,"pressure_pa":999,"humidity":82,"uv_index":2,"soil_temp":6,"soil_moisture":0.3,"prec_mm":0,"prec_period":360,"prec_prob":0},"day":{"_source":"12,13,14,15,16,17","temp_min":9,"temp_max":11,"temp_avg":10,"feels_like":6,"icon":"bkn_d","condition":"cloudy","daytime":"d","polar":false,"wind_speed":3.7,"wind_gust":11.3,"wind_dir":"w","pressure_mm":749,"pressure_pa":999,"humidity":55,"uv_index":2,"soil_temp":9,"soil_moisture":0.29,"prec_mm":0,"prec_period":360,"prec_prob":0},"evening":{"_source":"18,19,20,21,22,23","temp_min":5,"temp_max":9,"temp_avg":7,"feels_like":3,"icon":"bkn_n","condition":"cloudy","daytime":"n","polar":false,"wind_speed":2.6,"wind_gust":8.8,"wind_dir":"w","pressure_mm":748,"pressure_pa":998,"humidity":69,"uv_index":0,"soil_temp":9,"soil_moisture":0.29,"prec_mm":0,"prec_period":360,"prec_prob":0},"day_short":{"_source":"8,9,10,11,12,13,14,15,16,17,18,19,20","temp":11,"temp_min":4,"feels_like":7,"icon":"bkn_d","condition":"cloudy","wind_speed":3.7,"wind_gust":11.3,"wind_dir":"w","pressure_mm":749,"pressure_pa":999,"humidity":63,"uv_index":2,"soil_temp":8,"soil_moisture":0.29,"prec_mm":0,"prec_prob":0},"night_short":{"temp":2,"feels_like":-1,"icon":"ovc_-ra","condition":"overcast-and-light-rain","wind_speed":1.6,"wind_gust":4.2,"wind_dir":"w","pressure_mm":749,"pressure_pa":999,"humidity":91,"uv_index":0,"soil_temp":5,"soil_moisture":0.3,"prec_mm":0.1,"prec_prob":50}}},{"date":"2019-09-27","date_ts":1569531600,"week":39,"sunrise":"06:22","sunset":"18:15","moon_code":7,"moon_text":"decreasing-moon","parts":{"night":{"_source":"0,1,2,3,4,5","temp_min":3,"temp_max":5,"temp_avg":4,"feels_like":1,"icon":"bkn_n","condition":"cloudy","daytime":"n","polar":false,"wind_speed":1.8,"wind_gust":3.6,"wind_dir":"w","pressure_mm":748,"pressure_pa":998,"humidity":84,"uv_index":0,"soil_temp":7,"soil_moisture":0.29,"prec_mm":0,"prec_period":360,"prec_prob":0},"morning":{"_source":"6,7,8,9,10,11","temp_min":3,"temp_max":7,"temp_avg":5,"feels_like":2,"icon":"ovc_-ra","condition":"overcast-and-light-rain","daytime":"d","polar":false,"wind_speed":2.7,"wind_gust":3.7,"wind_dir":"w","pressure_mm":748,"pressure_pa":998,"humidity":84,"uv_index":1,"soil_temp":7,"soil_moisture":0.29,"prec_mm":0.3,"prec_period":360,"prec_prob":60},"day":{"_source":"12,13,14,15,16,17","temp_min":8,"temp_max":9,"temp_avg":9,"feels_like":5,"icon":"ovc_-ra","condition":"overcast-and-light-rain","daytime":"d","polar":false,"wind_speed":3.4,"wind_gust":7.4,"wind_dir":"w","pressure_mm":748,"pressure_pa":998,"humidity":72,"uv_index":1,"soil_temp":8,"soil_moisture":0.29,"prec_mm":0.2,"prec_period":360,"prec_prob":60},"evening":{"_source":"18,19,21","temp_min":7,"temp_max":8,"temp_avg":8,"feels_like":5,"icon":"bkn_-ra_n","condition":"overcast-and-light-rain","daytime":"n","polar":false,"wind_speed":2.3,"wind_gust":5,"wind_dir":"nw","pressure_mm":748,"pressure_pa":998,"humidity":84,"uv_index":0,"soil_temp":8,"soil_moisture":0.29,"prec_mm":0.3,"prec_period":360,"prec_prob":70},"day_short":{"_source":"8,9,10,11,12,13,14,15,16,17,18,19","temp":9,"temp_min":4,"feels_like":6,"icon":"ovc_-ra","condition":"overcast-and-light-rain","wind_speed":3.4,"wind_gust":7.4,"wind_dir":"w","pressure_mm":748,"pressure_pa":998,"humidity":77,"uv_index":1,"soil_temp":7,"soil_moisture":0.29,"prec_mm":0.7,"prec_prob":70},"night_short":{"temp":3,"feels_like":0,"icon":"bkn_n","condition":"cloudy","wind_speed":1.8,"wind_gust":3.6,"wind_dir":"w","pressure_mm":748,"pressure_pa":998,"humidity":84,"uv_index":0,"soil_temp":7,"soil_moisture":0.29,"prec_mm":0,"prec_prob":0}}},{"date":"2019-09-28","date_ts":1569618000,"week":39,"sunrise":"06:24","sunset":"18:12","moon_code":8,"moon_text":"new-moon","parts":{"night":{"_source":"0,3","temp_min":5,"temp_max":6,"temp_avg":6,"feels_like":4,"icon":"bkn_-ra_n","condition":"overcast-and-light-rain","daytime":"n","polar":false,"wind_speed":0.9,"wind_gust":1.9,"wind_dir":"n","pressure_mm":750,"pressure_pa":1000,"humidity":92,"uv_index":0,"soil_temp":7,"soil_moisture":0.29,"prec_mm":0.1,"prec_period":360,"prec_prob":50},"morning":{"_source":"6,9","temp_min":5,"temp_max":5,"temp_avg":5,"feels_like":3,"icon":"bkn_-ra_n","condition":"cloudy-and-light-rain","daytime":"n","polar":false,"wind_speed":0.7,"wind_gust":2.9,"wind_dir":"ne","pressure_mm":751,"pressure_pa":1002,"humidity":93,"uv_index":1,"soil_temp":7,"soil_moisture":0.29,"prec_mm":0.2,"prec_period":360,"prec_prob":50},"day":{"_source":"12,15","temp_min":8,"temp_max":11,"temp_avg":10,"feels_like":8,"icon":"bkn_-ra_d","condition":"cloudy-and-light-rain","daytime":"d","polar":false,"wind_speed":0.8,"wind_gust":6.9,"wind_dir":"e","pressure_mm":751,"pressure_pa":1002,"humidity":74,"uv_index":2,"soil_temp":10,"soil_moisture":0.29,"prec_mm":0.1,"prec_period":360,"prec_prob":40},"evening":{"_source":"18,21","temp_min":7,"temp_max":10,"temp_avg":9,"feels_like":7,"icon":"bkn_d","condition":"partly-cloudy","daytime":"d","polar":false,"wind_speed":1.4,"wind_gust":6.1,"wind_dir":"se","pressure_mm":749,"pressure_pa":999,"humidity":79,"soil_temp":10,"soil_moisture":0.28,"prec_mm":0,"prec_period":360,"prec_prob":0},"day_short":{"_source":"9,12,15,18","temp":11,"temp_min":5,"feels_like":10,"icon":"bkn_-ra_d","condition":"cloudy-and-light-rain","wind_speed":1,"wind_gust":6.9,"wind_dir":"e","pressure_mm":750,"pressure_pa":1000,"humidity":78,"uv_index":2,"soil_temp":10,"soil_moisture":0.29,"prec_mm":0.2,"prec_prob":50},"night_short":{"temp":5,"feels_like":3,"icon":"bkn_-ra_n","condition":"overcast-and-light-rain","wind_speed":0.9,"wind_gust":1.9,"wind_dir":"n","pressure_mm":750,"pressure_pa":1000,"humidity":92,"uv_index":0,"soil_temp":7,"soil_moisture":0.29,"prec_mm":0.1,"prec_prob":50}}},{"date":"2019-09-29","date_ts":1569704400,"week":39,"sunrise":"06:26","sunset":"18:09","moon_code":8,"moon_text":"new-moon","parts":{"night":{"_source":"0,3","temp_min":6,"temp_max":6,"temp_avg":6,"feels_like":4,"icon":"bkn_-ra_n","condition":"cloudy-and-light-rain","daytime":"n","polar":false,"wind_speed":1.7,"wind_gust":6.7,"wind_dir":"se","pressure_mm":748,"pressure_pa":998,"humidity":89,"soil_temp":9,"soil_moisture":0.28,"prec_mm":0.2,"prec_period":360,"prec_prob":60},"morning":{"_source":"6,9","temp_min":6,"temp_max":8,"temp_avg":7,"feels_like":4,"icon":"bkn_-ra_n","condition":"overcast-and-light-rain","daytime":"n","polar":false,"wind_speed":2.8,"wind_gust":9.1,"wind_dir":"s","pressure_mm":745,"pressure_pa":994,"humidity":85,"soil_temp":9,"soil_moisture":0.29,"prec_mm":0.5,"prec_period":360,"prec_prob":70},"day":{"_source":"12,15","temp_min":10,"temp_max":12,"temp_avg":11,"feels_like":8,"icon":"bkn_-ra_d","condition":"cloudy-and-light-rain","daytime":"d","polar":false,"wind_speed":2.8,"wind_gust":8.2,"wind_dir":"s","pressure_mm":744,"pressure_pa":992,"humidity":78,"soil_temp":11,"soil_moisture":0.3,"prec_mm":0.7,"prec_period":360,"prec_prob":70},"evening":{"_source":"18,21","temp_min":9,"temp_max":10,"temp_avg":10,"feels_like":8,"icon":"bkn_-ra_d","condition":"overcast-and-light-rain","daytime":"d","polar":false,"wind_speed":1.9,"wind_gust":6.9,"wind_dir":"s","pressure_mm":743,"pressure_pa":991,"humidity":89,"soil_temp":12,"soil_moisture":0.32,"prec_mm":0.2,"prec_period":360,"prec_prob":70},"day_short":{"_source":"9,12,15,18","temp":12,"temp_min":8,"feels_like":10,"icon":"bkn_-ra_d","condition":"overcast-and-light-rain","wind_speed":2.8,"wind_gust":9,"wind_dir":"s","pressure_mm":744,"pressure_pa":992,"humidity":81,"soil_temp":11,"soil_moisture":0.3,"prec_mm":1,"prec_prob":70},"night_short":{"temp":6,"feels_like":4,"icon":"bkn_-ra_n","condition":"cloudy-and-light-rain","wind_speed":1.7,"wind_gust":6.7,"wind_dir":"se","pressure_mm":748,"pressure_pa":998,"humidity":89,"soil_temp":9,"soil_moisture":0.28,"prec_mm":0.2,"prec_prob":60}}},{"date":"2019-09-30","date_ts":1569790800,"week":40,"sunrise":"06:28","sunset":"18:07","moon_code":9,"moon_text":"growing-moon","parts":{"night":{"_source":"0,3","temp_min":9,"temp_max":9,"temp_avg":9,"feels_like":7,"icon":"ovc_ra","condition":"cloudy-and-rain","daytime":"n","polar":false,"wind_speed":1.8,"wind_gust":7.6,"wind_dir":"sw","pressure_mm":740,"pressure_pa":987,"humidity":92,"soil_temp":10,"soil_moisture":0.32,"prec_mm":1.3,"prec_period":360,"prec_prob":70},"morning":{"_source":"6,9","temp_min":8,"temp_max":9,"temp_avg":9,"feels_like":7,"icon":"bkn_ra_n","condition":"cloudy-and-rain","daytime":"n","polar":false,"wind_speed":1.6,"wind_gust":7.6,"wind_dir":"sw","pressure_mm":738,"pressure_pa":984,"humidity":92,"soil_temp":10,"soil_moisture":0.36,"prec_mm":1.6,"prec_period":360,"prec_prob":70},"day":{"_source":"12,15","temp_min":12,"temp_max":13,"temp_avg":13,"feels_like":11,"icon":"bkn_-ra_d","condition":"cloudy-and-light-rain","daytime":"d","polar":false,"wind_speed":2.6,"wind_gust":11.7,"wind_dir":"w","pressure_mm":738,"pressure_pa":984,"humidity":78,"soil_temp":11,"soil_moisture":0.4,"prec_mm":0.5,"prec_period":360,"prec_prob":70},"evening":{"_source":"18,21","temp_min":10,"temp_max":12,"temp_avg":11,"feels_like":9,"icon":"bkn_-ra_d","condition":"overcast-and-light-rain","daytime":"d","polar":false,"wind_speed":2.3,"wind_gust":11.7,"wind_dir":"w","pressure_mm":739,"pressure_pa":986,"humidity":84,"soil_temp":11,"soil_moisture":0.38,"prec_mm":0.1,"prec_period":360,"prec_prob":50},"day_short":{"_source":"9,12,15,18","temp":13,"temp_min":9,"feels_like":11,"icon":"bkn_-ra_d","condition":"cloudy-and-light-rain","wind_speed":2.6,"wind_gust":11.7,"wind_dir":"w","pressure_mm":738,"pressure_pa":984,"humidity":82,"soil_temp":11,"soil_moisture":0.4,"prec_mm":1,"prec_prob":70},"night_short":{"temp":9,"feels_like":7,"icon":"ovc_ra","condition":"cloudy-and-rain","wind_speed":1.8,"wind_gust":7.6,"wind_dir":"sw","pressure_mm":740,"pressure_pa":987,"humidity":92,"soil_temp":10,"soil_moisture":0.32,"prec_mm":1.3,"prec_prob":70}}}]}}/>
-    </div>
-  );
+  componentDidMount() {
+    this.props.dispatch(getWeatherDataByCoordinates({period: 'for_week', point: this.state.regionCoordinates}));
+  }
+
+  clickTab(periodName){
+    this.props.dispatch(getWeatherDataByCoordinates({period: periodName, point: this.state.regionCoordinates}));
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <Header tabs={this.tabs} clickTab={this.clickTab}/>
+        <WeatherList weatherItems={this.props.weatherData}/>
+      </div>
+    )
+  }
+
 }
 
-export default App;
+function mapStateToProps(state){
+  return{
+    weatherData: state.weatherData.data
+  }
+}
+
+export default connect(mapStateToProps)(App);
