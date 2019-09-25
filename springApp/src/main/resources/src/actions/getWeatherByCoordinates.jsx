@@ -15,13 +15,11 @@ export const getWeatherDataByCoordinates = (params) => {
     }
     return dispatch => {
         dispatch(fetchBegin());
-        return fetch('https://api.weather.yandex.ru/v1/forecast?lat=' + point.lat +
-          '&lon=' + point.lon + '&lang=ru_RU&limit=7&hours=false&extra=false ', {
+        return fetch('/settings/' + point.lat + '&' + point.lon, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'X-Yandex-API-Key': 'bbdc0f99-3dba-4a9f-99ed-d0a462fe39c0'
+                'Content-Type': 'application/json'
             }
         })
             .then(handleErrors)

@@ -2,7 +2,7 @@
   "name": "weather_reactapp",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://eglazkov.github.io/weather_reactApp/",
+  "homepage": "http://eglazkov.github.io/",
   "dependencies": {
     "babel": "^6.23.0",
     "babel-polyfill": "^6.26.0",
